@@ -1,8 +1,12 @@
 class EventsController < ApplicationController
+
+before_action :set_event, :only => [ :show, :edit, :update, :destroy]
+
 #get /events
 # get /events/index
       def index
-            @events = Event.all
+            #@events = Event.all
+            @events = Event.page(params[:page]).per(20)
       end
 
 #get /events/new
@@ -12,31 +16,39 @@ class EventsController < ApplicationController
 #POST /events/create
       def create
         @event = Event.new(event_params)
-        @event.save
-
-        redirect_to :action => :index
+            if @event.save   #if the input passed the data validation
+              flash[:notice] = "event was successfully created"
+              redirect_to :action => :index
+            else
+            render :action => :new #otherwise, show the error msg to user
+      end
       end
 
 #GET /events/show/:id
       def show
-            @event = Event.find( params[:id] )
+
+            @page_title = @event.name
       end
 #GET /events/edit/:id
       def edit
-            @event = Event.find (params[:id] )
+
       end
 #POST /events/edit/update/:id
       def update
-            @event = Event.find (params[:id])
 
-            @event.update (event_params)
-             redirect_to :action => :show, :id => @event
+
+            if @event.update (event_params) # if successfully updated the data
+               flash[:notice] = "event was successfully updated"
+               redirect_to :action => :show, :id => @event
+            else
+              render :action => :edit
+            end
       end
 #GET /events/destroy/:id
       def destroy
-             @event = Event.find(params[:id])
-              @event.destroy
 
+              @event.destroy
+              flash[:alert] = "event was successfully deleted"
                redirect_to :action => :index
       end
 
@@ -44,7 +56,9 @@ class EventsController < ApplicationController
 
 
       private
-
+      def set_event
+        @event = Event.find(params[:id])
+      end
       def event_params
         params.require(:event).permit(:name, :description)
       end
