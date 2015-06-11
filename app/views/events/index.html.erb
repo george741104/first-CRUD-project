@@ -1,24 +1,25 @@
 <h1>Event list</h1>
 
 
-<ul>
-<% @events.each do |e| %>
-  <li>
-        <%= e.name %>
-        <%= link_to 'Show', event_path(e) %>
+<table>
+    <% @events.each do |e| %>
+      <tr>
+            <td>
+                <%= e.name %>
+            </td>
 
-        <%= link_to 'Get XML', event_path(e, :format => :xml ) %>
-        <%= link_to 'Get Json', event_path(e, :format => :json) %>
-        <%= link_to 'Show', event_path(e) %>
+                <td>
+                        <%= link_to 'Show', event_path(e), :class => "btn btn-primary" %>
+                        <%= link_to 'Get XML', event_path(e, :format => :xml ), :class => "btn btn-default" %>
+                        <%= link_to 'Get Json', event_path(e, :format => :json), :class => "btn btn-danger" %>
+                        <%= link_to 'Show', event_path(e), :class => "btn btn-info" %>
+                        <%= link_to 'Edit', edit_event_path(e), :class => "btn btn-warning" %>
+                        <%= link_to 'Delete', event_path(e), :class => "btn btn-success", :method => :delete %>
+                </td>
 
-
-
-
-        <%= link_to 'Edit', edit_event_path(e) %>
-        <%= link_to 'Delete', event_path(e), :method => :delete %>
-  </li>
-<% end %>
-</ul>
+          </tr>
+    <% end %>
+</table>
 <%= link_to 'New Event', new_event_path %>
 <%= paginate @events %>
 
