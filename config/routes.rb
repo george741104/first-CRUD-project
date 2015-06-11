@@ -5,7 +5,7 @@ resources :people
     get "welcome/say_hello" => 'welcome#say'
     get "welcome" => "welcome#index"
 
-match ':controller(/:action(/:id(.:format)))', :via => :all
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

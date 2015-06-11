@@ -18,7 +18,7 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy]
         @event = Event.new(event_params)
             if @event.save   #if the input passed the data validation
               flash[:notice] = "event was successfully created"
-              redirect_to :action => :index
+              redirect_to events_path
             else
             render :action => :new #otherwise, show the error msg to user
       end
@@ -39,17 +39,17 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy]
 
             if @event.update (event_params) # if successfully updated the data
                flash[:notice] = "event was successfully updated"
-               redirect_to :action => :show, :id => @event
+               redirect_to event_path(@event)
             else
               render :action => :edit
             end
       end
-#POST /events/destroy/:id
+#GET /events/destroy/:id
       def destroy
 
               @event.destroy
               flash[:alert] = "event was successfully deleted"
-               redirect_to :action => :index
+               redirect_to events_path
       end
 
 
