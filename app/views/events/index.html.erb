@@ -6,6 +6,14 @@
   <li>
         <%= e.name %>
         <%= link_to 'Show', event_path(e) %>
+
+        <%= link_to 'Get XML', event_path(e, :format => :xml ) %>
+        <%= link_to 'Get Json', event_path(e, :format => :json) %>
+        <%= link_to 'Show', event_path(e) %>
+
+
+
+
         <%= link_to 'Edit', edit_event_path(e) %>
         <%= link_to 'Delete', event_path(e), :method => :delete %>
   </li>
@@ -13,3 +21,5 @@
 </ul>
 <%= link_to 'New Event', new_event_path %>
 <%= paginate @events %>
+
+<%= link_to "Atom feed", events_path(:format => :atom) %>
