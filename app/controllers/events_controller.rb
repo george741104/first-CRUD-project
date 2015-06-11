@@ -44,7 +44,7 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy]
               render :action => :edit
             end
       end
-#GET /events/destroy/:id
+#POST /events/destroy/:id
       def destroy
 
               @event.destroy
