@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
-resources :events do
-  resources :attendees, :controller => 'event_attendees'
+    resources :events do
+      resources :attendees, :controller => 'event_attendees'
+    end
 
-end
-resources :people
-    root :to => "welcome#index"
-    get "welcome/say_hello" => 'welcome#say'
-    get "welcome" => "welcome#index"
+
+    resources :people
+        root :to => "welcome#index"
+        get "welcome/say_hello" => 'welcome#say'
+        get "welcome" => "welcome#index"
 
 
 
