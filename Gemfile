@@ -26,8 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #分頁外掛
 gem 'kaminari'
 #postgre database
-  gem 'pg'
- gem 'rails_12factor', group: :production
+gem 'pg'
+gem 'rails_12factor', group: :production
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
