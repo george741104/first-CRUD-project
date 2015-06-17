@@ -6,10 +6,16 @@ Rails.application.routes.draw do
         #post :bulk_delete
         post :bulk_update
       end
+
       member do
         get :dashboard
       end
     end
+
+    namespace :admin do
+      resources :events #:controller =>"admin::"
+    end
+
 
 
     resources :people
