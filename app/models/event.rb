@@ -13,4 +13,7 @@ class Event < ActiveRecord::Base
     has_many :groups, :through => :event_groupships
 
     has_many :attendees, -> {where(['created_at > ?', Time.now - 7.day]).order("id DESC")}
+    belongs_to :category
+
+    delegate :name, :to => :category, :prefix => true, :allow_nil => true
 end
