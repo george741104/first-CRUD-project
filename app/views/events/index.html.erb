@@ -13,6 +13,17 @@
 <% end %>
 
 <hr>
+
+
+<%= form_tag events_path, :method => :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<hr>
+<%= link_to 'Sort by Name', events_path(:order=>"name"), :class => "btn btn-default"%>
+<%= link_to 'Sort by Default', events_path, :class => "btn btn-default" %>
+
 <%= form_tag bulk_update_events_path do %>
   <table class="table">
       <% @events.each do |e| %>
