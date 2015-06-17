@@ -25,6 +25,7 @@
                     </div>
                   <% end%>
                   <% if current_user %>
+                  Hi, <%= current_user.email %>
                     <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> |
                     <%= link_to('Edit Profile', edit_registration_path(:user)) %>
                     <% else %>
