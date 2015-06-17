@@ -22,15 +22,13 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy]
       format.json { render :json => @events.to_json }
       format.atom { @feed_title = "My event list" } # index.atom.builder
     end
-
-
   end
 
 
 #GET /events/new
-      def new
-            @event= Event.new
-      end
+  def new
+    @event= Event.new
+  end
 
 
 
@@ -45,6 +43,23 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy]
     end
   end
 
+#GET /events/latest
+  def latest
+    @events = Event.order("id DESC").limit(3)
+  end
+
+#POST /event/bulk_update
+def bulk_update
+  ids = Array(params[:ids])
+    events = ids.map{ |i| Event.find_by_id(i) }.compact
+
+    if params[:commit] == "Publish"
+      events.each{ |e| e.update( :status => "published" ) }
+    elsif params[:commit] == "Delete"
+      events.each{ |e| e.destroy }
+    end
+  redirect_to :back
+end
 
 
 
@@ -94,8 +109,8 @@ end
     @event = Event.find(params[:id])
   end
   def event_params
-    params.require(:event).permit(:name, :description, :category_id,
-                                  :group_ids=> [])
+    params.require(:event).permit(:name, :description,:status, :category_id,
+                                  :group_ids=>[] )
   end
   def prepare_variable_for_index_template
   @events = Event.page( params[:page] ).per(10)
