@@ -33,6 +33,10 @@
             <%= e.name %>
           </td>
           <td>
+            <%= e.user.try(:short_name) %>
+          </td>
+
+          <td>
             <%= link_to 'Show', event_path(e), :class => "btn btn-primary" %>
             <%= link_to 'DashBoard', dashboard_event_path(e), :class => "btn btn-primary" %>
             <%= link_to 'Attendee List', event_attendees_path(e), :class => "btn btn-primary" %>

@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-before_action :authenticate_user, :except => [:index]
+before_action :authenticate_user!, :except => [:index]
 before_action :set_event, :only => [ :show, :edit, :update, :destroy, :dashboard]
 
 #GET /events
@@ -37,6 +37,8 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy, :dashboard
 #POST /events/create
   def create
     @event = Event.new(event_params)
+    @event.user = current_user
+
     if @event.save   #if the input passed the data validation
       flash[:notice] = "event was successfully created"
       redirect_to events_path
@@ -87,6 +89,7 @@ end
   end
 #POST /events/edit/update/:id
   def update
+
     if @event.update (event_params) # if successfully updated the data
        flash[:notice] = "event was successfully updated"
        redirect_to event_path(@event)

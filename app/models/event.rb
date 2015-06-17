@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
 
     validates_presence_of :name
 
+    belongs_to :user
+
     has_many :attendees, :dependent => :destroy #Attendees would be deleted as well when destroying event.
 
     has_many :attendees, -> {where(['created_at > ?', Time.now - 7.day]).order("id DESC")}
