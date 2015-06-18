@@ -14,13 +14,14 @@
 
 <hr>
 
-
+<!-- search bar here -->
 <%= form_tag events_path, :method => :get do %>
   <%= text_field_tag "keyword" %>
   <%= submit_tag "Search" %>
-<% end %>
+<% end %><!-- search bar here -->
 
 <hr>
+
 <%= link_to 'Sort by Name', events_path(:order=>"name"), :class => "btn btn-default"%>
 <%= link_to 'Sort by Default', events_path, :class => "btn btn-default" %>
 
@@ -28,6 +29,7 @@
   <table class="table">
       <% @events.each do |e| %>
         <tr>
+
           <td>
             <%= check_box_tag "ids[]", e.id, false %>
             <%= e.name %>

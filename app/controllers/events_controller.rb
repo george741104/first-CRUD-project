@@ -5,8 +5,6 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy, :dashboard
 #GET /events
 #GET /events/index
   def index
-
-
     #@events = Event.all
     @events = Event.page(params[:page]).per(20)
 
@@ -18,6 +16,7 @@ before_action :set_event, :only => [ :show, :edit, :update, :destroy, :dashboard
     end
 
     prepare_variable_for_index_template
+
     respond_to do |format|
       format.html
       format.xml { render :xml => @events.to_xml }
@@ -68,7 +67,6 @@ end
 #GET /events/:id/dashboard
 def dashboard
     #@event = Event.find(params[:id])
-
 end
 
 #GET /events/show/:id
@@ -87,6 +85,7 @@ end
   def edit
 
   end
+
 #POST /events/edit/update/:id
   def update
 
@@ -99,6 +98,7 @@ end
       render :action => :index
     end
   end
+
 #GET /events/destroy/:id
 def destroy
 
@@ -121,6 +121,7 @@ end
   def prepare_variable_for_index_template
     if params[:keyword]
       @events = Event.where( [ "name like ?", "%#{params[:keyword]}%" ] )
+#============================================^and date =  ?,       ^, Time.now......
     else
      @events = Event.all
     end
